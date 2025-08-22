@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SGBApp.Data; // Cambia SGBApp por el namespace real de tu proyecto
+using SGBApp.Data;
 using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
