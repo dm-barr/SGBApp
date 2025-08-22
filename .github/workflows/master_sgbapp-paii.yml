@@ -52,4 +52,4 @@ jobs:
           app-name: 'sgbapp-paii'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_56C38F8A8D23401491F6DB74D0087B26 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ADC2B121495148EFAE229E8AD8025026 }}
