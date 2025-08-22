@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SGBApp.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SGBApp.Data;
 using SGBApp.Models;
 using System.Linq;
 using System;
