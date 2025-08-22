@@ -1,0 +1,31 @@
+﻿@page
+@model SGBApp.Pages.Reports.OverdueModel
+@{
+    ViewData["Title"] = "Préstamos vencidos";
+}
+
+<h2>Préstamos vencidos</h2>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Libro</th>
+            <th>Estudiante</th>
+            <th>Due Date</th>
+            <th>Días de retraso</th>
+            <th>Multa acumulada</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Overdues)
+        {
+            <tr>
+                <td>@r.BookTitle</td>
+                <td>@r.StudentName</td>
+                <td>@r.DueDate.ToLocalTime().ToString("yyyy-MM-dd")</td>
+                <td>@r.DaysLate</td>
+                <td>@r.CurrentFine.ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,26 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Students.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Estudiante";
+}
+
+<h2>Eliminar Estudiante</h2>
+
+@if (Model.Student == null)
+{
+    <div class="alert alert-danger">Estudiante no encontrado.</div>
+}
+else
+{
+    <div class="alert alert-warning">
+        ¿Seguro que desea eliminar al estudiante <strong>@Model.Student.Name</strong>?
+        <br />
+        <small class="text-muted">Si existen préstamos activos asociados, no será posible eliminar.</small>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="Student.Id" />
+        <button class="btn btn-danger">Eliminar</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}

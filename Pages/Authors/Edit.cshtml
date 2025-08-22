@@ -1,0 +1,30 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Authors.EditModel
+@{
+    ViewData["Title"] = "Editar Autor";
+}
+
+<h2>Editar Autor</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Author.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Author.Name" class="form-label"></label>
+        <input asp-for="Author.Name" class="form-control" />
+        <span asp-validation-for="Author.Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Author.Biography" class="form-label"></label>
+        <textarea asp-for="Author.Biography" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Author.Biography" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-primary">Guardar</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

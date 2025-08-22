@@ -1,0 +1,40 @@
+﻿@page
+@model SGBApp.Pages.Students.CreateModel
+@{
+    ViewData["Title"] = "Crear Estudiante";
+}
+
+<h2>Crear Estudiante</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Student.Name" class="form-label"></label>
+        <input asp-for="Student.Name" class="form-control" />
+        <span asp-validation-for="Student.Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Student.DocumentNumber" class="form-label"></label>
+        <input asp-for="Student.DocumentNumber" class="form-control" />
+        <span asp-validation-for="Student.DocumentNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Student.Email" class="form-label"></label>
+        <input asp-for="Student.Email" class="form-control" />
+        <span asp-validation-for="Student.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Student.Phone" class="form-label"></label>
+        <input asp-for="Student.Phone" class="form-control" />
+        <span asp-validation-for="Student.Phone" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-primary">Guardar</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

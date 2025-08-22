@@ -1,0 +1,51 @@
+﻿@page
+@model SGBApp.Pages.Books.CreateModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Agregar libro</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Book.Title" class="form-label"></label>
+        <input asp-for="Book.Title" class="form-control" />
+        <span asp-validation-for="Book.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Book.AuthorId" class="form-label"></label>
+        <select asp-for="Book.AuthorId" class="form-select" asp-items="Model.AuthorsSelect" required>
+            <option value="">-- Seleccione un autor --</option>
+        </select>
+        <span asp-validation-for="Book.AuthorId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Book.ISBN" class="form-label"></label>
+        <input asp-for="Book.ISBN" class="form-control" />
+        <span asp-validation-for="Book.ISBN" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Book.CopiesAvailable" class="form-label"></label>
+        <input asp-for="Book.CopiesAvailable" class="form-control" />
+        <span asp-validation-for="Book.CopiesAvailable" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Book.Year" class="form-label"></label>
+        <input asp-for="Book.Year" class="form-control" />
+        <span asp-validation-for="Book.Year" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Book.Publisher" class="form-label"></label>
+        <input asp-for="Book.Publisher" class="form-control" />
+        <span asp-validation-for="Book.Publisher" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

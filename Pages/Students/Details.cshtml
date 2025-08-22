@@ -1,0 +1,24 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Students.DetailsModel
+@{
+    ViewData["Title"] = "Detalle Estudiante";
+}
+
+<h2>Detalle del Estudiante</h2>
+
+@if (Model.Student == null)
+{
+    <div class="alert alert-warning">Estudiante no encontrado.</div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Student.Name</h5>
+            <p><strong>Documento:</strong> @Model.Student.DocumentNumber</p>
+            <p><strong>Email:</strong> @(string.IsNullOrEmpty(Model.Student.Email) ? "-" : Model.Student.Email)</p>
+            <p><strong>Teléfono:</strong> @(string.IsNullOrEmpty(Model.Student.Phone) ? "-" : Model.Student.Phone)</p>
+        </div>
+    </div>
+    <a asp-page="Index" class="btn btn-secondary mt-3">Volver</a>
+}

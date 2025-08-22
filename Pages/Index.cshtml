@@ -1,0 +1,135 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard Biblioteca";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Dashboard de la Biblioteca</h2>
+
+    <div class="row mb-4 g-3">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-book fs-3"></i>
+                    <p class="mb-1">Libros Totales</p>
+                    <h4>@Model.Dashboard.TotalBooks</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-people fs-3"></i>
+                    <p class="mb-1">Estudiantes Registrados</p>
+                    <h4>@Model.Dashboard.TotalStudents</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-journal-text fs-3"></i>
+                    <p class="mb-1">Préstamos Totales</p>
+                    <h4>@Model.Dashboard.TotalLoans</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-arrow-repeat fs-3"></i>
+                    <p class="mb-1">Préstamos Activos</p>
+                    <h4>@Model.Dashboard.ActiveLoans</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card bg-danger text-white shadow text-center">
+                <div class="card-body">
+                    <i class="bi bi-cash-coin fs-3"></i>
+                    <p class="mb-1">Multas Totales</p>
+                    <h3>S/. @Model.Dashboard.TotalFines</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4 g-3">
+        <div class="col-md-6">
+            <div class="card shadow p-3 h-100">
+                <h5 class="text-center">Préstamos por Estado</h5>
+                <canvas id="loansByStatusChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow p-3 h-100">
+                <h5 class="text-center">Disponibilidad de Libros</h5>
+                <canvas id="booksDistributionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4 g-3">
+        <div class="col-md-6">
+            <div class="card shadow p-3 h-100">
+                <h5 class="text-center">Top 5 Libros más Prestados</h5>
+                <canvas id="topBooksChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow p-3 h-100">
+                <h5 class="text-center">Top 5 Estudiantes con más Préstamos</h5>
+                <canvas id="topStudentsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const loansByStatusData = {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dashboard.LoansByStatus.Keys)),
+            datasets: [{
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dashboard.LoansByStatus.Values)),
+                backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+            }]
+        };
+        new Chart(document.getElementById('loansByStatusChart'), { type: 'doughnut', data: loansByStatusData });
+
+        const topBooksData = {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dashboard.TopBooks.Select(x => x.BookTitle))),
+            datasets: [{
+                label: 'Préstamos',
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dashboard.TopBooks.Select(x => x.Count))),
+                backgroundColor: '#007bff'
+            }]
+        };
+        new Chart(document.getElementById('topBooksChart'), { type: 'bar', data: topBooksData });
+
+        const topStudentsData = {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dashboard.TopStudents.Select(x => x.StudentName))),
+            datasets: [{
+                label: 'Préstamos',
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dashboard.TopStudents.Select(x => x.Count))),
+                backgroundColor: '#17a2b8'
+            }]
+        };
+        new Chart(document.getElementById('topStudentsChart'), { type: 'bar', data: topStudentsData });
+
+        const booksDistributionData = {
+            labels: ['Disponibles', 'Prestados'],
+            datasets: [{
+                data: [@Model.Dashboard.BooksDistribution.Available, @Model.Dashboard.BooksDistribution.Borrowed],
+                backgroundColor: ['#28a745', '#ffc107']
+            }]
+        };
+        new Chart(document.getElementById('booksDistributionChart'), { type: 'doughnut', data: booksDistributionData });
+    </script>
+}

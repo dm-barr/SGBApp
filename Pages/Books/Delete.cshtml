@@ -1,0 +1,17 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Books.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Libro";
+}
+
+<h2>Eliminar Libro</h2>
+
+<div class="alert alert-warning">
+    ¿Seguro que desea eliminar el libro <strong>@Model.Book?.Title</strong>?
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Book.Id" />
+    <button class="btn btn-danger">Eliminar</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>

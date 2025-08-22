@@ -1,0 +1,38 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Loans.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Editar Préstamo</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Loan.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Loan.BookId" class="form-label"></label>
+        <select asp-for="Loan.BookId" class="form-select" asp-items="Model.BooksSelect" required>
+            <option value="">-- Seleccione un libro --</option>
+        </select>
+        <span asp-validation-for="Loan.BookId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Loan.StudentId" class="form-label"></label>
+        <select asp-for="Loan.StudentId" class="form-select" asp-items="Model.StudentsSelect" required>
+            <option value="">-- Seleccione un estudiante --</option>
+        </select>
+        <span asp-validation-for="Loan.StudentId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Loan.DueDate" class="form-label"></label>
+        <input asp-for="Loan.DueDate" type="date" class="form-control" />
+        <span asp-validation-for="Loan.DueDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,26 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Authors.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Autor";
+}
+
+<h2>Eliminar Autor</h2>
+
+@if (Model.Author == null)
+{
+    <div class="alert alert-danger">Autor no encontrado.</div>
+}
+else
+{
+    <div class="alert alert-warning">
+        ¿Seguro que desea eliminar al autor <strong>@Model.Author.Name</strong>?
+        <br />
+        <small class="text-muted">Si existen libros asociados, la eliminación fallará por integridad referencial.</small>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="Author.Id" />
+        <button class="btn btn-danger">Eliminar</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}

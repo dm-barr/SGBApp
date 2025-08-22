@@ -1,0 +1,36 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Loans.ReturnModel
+@{
+    ViewData["Title"] = "Registrar Devolución";
+}
+
+<h2>Registrar Devolución</h2>
+
+@if (Model.Loan == null)
+{
+    <div class="alert alert-danger">Préstamo no encontrado.</div>
+}
+else
+{
+    <div>
+        <p><strong>Libro:</strong> @Model.Loan.Book.Title</p>
+        <p><strong>Estudiante:</strong> @Model.Loan.Student.Name</p>
+        <p><strong>Vencimiento:</strong> @Model.Loan.DueDate.ToLocalTime().ToString("yyyy-MM-dd")</p>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="Loan.Id" />
+        <div class="mb-3">
+            <label asp-for="ReturnDate" class="form-label">Fecha de devolución</label>
+            <input asp-for="ReturnDate" type="date" class="form-control" value="@Model.TodayString" />
+            <span asp-validation-for="ReturnDate" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-success">Registrar devolución</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

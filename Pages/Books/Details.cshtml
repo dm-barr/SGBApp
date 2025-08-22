@@ -1,0 +1,19 @@
+﻿@page "{id:int}"
+@model SGBApp.Pages.Books.DetailsModel
+@{
+    ViewData["Title"] = "Detalle Libro";
+}
+
+<h2>Detalle del Libro</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Book.Title</h5>
+        <p><strong>Autor:</strong> @Model.Book.Author?.Name</p>
+        <p><strong>ISBN:</strong> @Model.Book.ISBN</p>
+        <p><strong>Copias disponibles:</strong> @Model.Book.CopiesAvailable</p>
+        <p><strong>Editorial:</strong> @Model.Book.Publisher</p>
+    </div>
+</div>
+
+<a asp-page="Index" class="btn btn-secondary mt-3">Volver</a>
