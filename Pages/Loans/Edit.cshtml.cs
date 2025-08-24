@@ -73,7 +73,6 @@ namespace SGBApp.Pages.Loans
             if (existingLoan == null)
                 return NotFound();
 
-            // Si se cambia el libro, ajustar copias disponibles
             if (Loan.BookId != existingLoan.BookId)
             {
                 var oldBook = await _context.Books.FindAsync(existingLoan.BookId);

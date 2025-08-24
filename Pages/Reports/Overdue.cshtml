@@ -4,16 +4,30 @@
     ViewData["Title"] = "Préstamos vencidos";
 }
 
-<h2>Préstamos vencidos</h2>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-<table class="table table-bordered mt-3">
+<div class="d-flex justify-content-between align-items-center">
+    <h2>Préstamos vencidos</h2>
+    <a asp-page="/Reports/Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+</div>
+
+<form class="mt-3">
+    <div class="input-group">
+        <input type="text" id="searchBox" class="form-control" placeholder="Buscar libro o estudiante..." />
+        <a asp-page="Overdue" class="btn btn-outline-danger">Limpiar</a>
+    </div>
+</form>
+
+<table class="table table-striped mt-3" id="overduesTable">
     <thead>
         <tr>
-            <th>Libro</th>
-            <th>Estudiante</th>
-            <th>Due Date</th>
-            <th>Días de retraso</th>
-            <th>Multa acumulada</th>
+            <th onclick="sortTable(0)">Libro ⬍</th>
+            <th onclick="sortTable(1)">Estudiante ⬍</th>
+            <th onclick="sortTable(2)">Fecha límite ⬍</th>
+            <th onclick="sortTable(3)">Días de retraso ⬍</th>
+            <th onclick="sortTable(4)">Multa acumulada ⬍</th>
         </tr>
     </thead>
     <tbody>
@@ -29,3 +43,44 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        const searchBox = document.getElementById("searchBox");
+        const rows = document.querySelectorAll("#overduesTable tbody tr");
+
+        searchBox.addEventListener("keyup", function () {
+            const value = this.value.toLowerCase();
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(value) ? "" : "none";
+            });
+        });
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById("overduesTable");
+            const tbody = table.tBodies[0];
+            const rows = Array.from(tbody.rows);
+
+            const currentDir = table.getAttribute("data-sort-dir-" + columnIndex) || "asc";
+            const newDir = currentDir === "asc" ? "desc" : "asc";
+            table.setAttribute("data-sort-dir-" + columnIndex, newDir);
+
+            rows.sort((a, b) => {
+                let valA = a.cells[columnIndex].innerText.trim().toLowerCase();
+                let valB = b.cells[columnIndex].innerText.trim().toLowerCase();
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    valA = Number(valA);
+                    valB = Number(valB);
+                }
+
+                if (valA < valB) return newDir === "asc" ? -1 : 1;
+                if (valA > valB) return newDir === "asc" ? 1 : -1;
+                return 0;
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+}

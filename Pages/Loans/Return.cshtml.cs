@@ -31,25 +31,20 @@ namespace SGBApp.Pages.Loans
             var loanInDb = await _context.Loans.Include(l => l.Book).FirstOrDefaultAsync(l => l.Id == Loan.Id);
             if (loanInDb == null) return NotFound();
 
-            // Set return date and calculate fine
             loanInDb.ReturnDate = ReturnDate.ToUniversalTime();
             loanInDb.Status = "Devuelto";
 
-            // increase copies
             var book = loanInDb.Book;
             book.CopiesAvailable += 1;
 
-            // Calculate days late
             var due = loanInDb.DueDate.Date;
             var ret = loanInDb.ReturnDate.Value.Date;
             int daysLate = (ret - due).Days;
             if (daysLate > 0)
             {
-                // Policy: 1.00 currency unit per day (ajustable)
                 decimal finePerDay = 1.27m;
                 loanInDb.FineAmount = finePerDay * daysLate;
 
-                // Store a Fine record (optional)
                 var fine = new Fine
                 {
                     LoanId = loanInDb.Id,
