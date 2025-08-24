@@ -23,10 +23,10 @@ namespace SGBApp.Data
 
             builder.Entity<Author>().HasIndex(a => a.Name);
             builder.Entity<Book>()
-                .HasOne(b => b.Author) // Relación muchos-a-uno
-                .WithMany(a => a.Books) // Relación uno-a-muchos
-                .HasForeignKey(b => b.AuthorId) // Clave foránea
-                .OnDelete(DeleteBehavior.Cascade); // Eliminar en cascada (opcional)
+                .HasOne(b => b.Author) 
+                .WithMany(a => a.Books) 
+                .HasForeignKey(b => b.AuthorId) 
+                .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

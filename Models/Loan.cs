@@ -33,8 +33,7 @@ namespace SGBApp.Models
         [Column(TypeName = "decimal(10,2)")]
         public decimal FineAmount { get; set; } = 0m;
 
-        // Estado: Activo, Devuelto
         [Required, StringLength(20)]
-        public string Status { get; set; } = "Activo";
+        public string Status { get; set; } = "Prestado";
     }
 }

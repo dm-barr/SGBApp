@@ -25,7 +25,7 @@ namespace SGBApp.Pages.Students
             var studentInDb = await _context.Students.FindAsync(Student.Id);
             if (studentInDb != null)
             {
-                var hasActiveLoans = await _context.Loans.AnyAsync(l => l.StudentId == studentInDb.Id && l.Status == "Activo");
+                var hasActiveLoans = await _context.Loans.AnyAsync(l => l.StudentId == studentInDb.Id && l.Status == "Prestado");
                 if (hasActiveLoans)
                 {
                     ModelState.AddModelError(string.Empty, "No se puede eliminar: el estudiante tiene préstamos activos.");
