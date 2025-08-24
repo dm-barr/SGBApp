@@ -7,7 +7,7 @@
 <form method="post">
     <div class="mb-3">
         <label asp-for="Loan.BookId" class="form-label"></label>
-        <select asp-for="Loan.BookId" class="form-select" asp-items="Model.BooksSelect" required>
+        <select asp-for="Loan.BookId" class="form-select" asp-items="Model.BooksSelect" id="bookSelect" required>
             <option value="">-- Seleccione un libro --</option>
         </select>
         <span asp-validation-for="Loan.BookId" class="text-danger"></span>
@@ -15,7 +15,7 @@
 
     <div class="mb-3">
         <label asp-for="Loan.StudentId" class="form-label"></label>
-        <select asp-for="Loan.StudentId" class="form-select" asp-items="Model.StudentsSelect" required>
+        <select asp-for="Loan.StudentId" class="form-select" asp-items="Model.StudentsSelect" id="studentSelect" required>
             <option value="">-- Seleccione un estudiante --</option>
         </select>
         <span asp-validation-for="Loan.StudentId" class="text-danger"></span>
@@ -33,4 +33,24 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#bookSelect').select2({
+                placeholder: "Buscar libro...",
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#studentSelect').select2({
+                placeholder: "Buscar estudiante...",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 }
