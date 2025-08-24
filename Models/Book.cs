@@ -30,8 +30,10 @@ namespace SGBApp.Models
         public int CopiesAvailable { get; set; } = 1;
 
         [Range(1000, 9999, ErrorMessage = "El año debe ser válido")]
+        [Display(Name = "Año de publicación")]
         public int? Year { get; set; }
 
+        [Display(Name = "Editorial")]
         [StringLength(250, ErrorMessage = "El nombre del editor no puede exceder 250 caracteres")]
         public string Publisher { get; set; }
     }
