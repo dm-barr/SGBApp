@@ -25,13 +25,10 @@ namespace SGBApp.Pages.Authors
             var authorInDb = await _context.Authors.FindAsync(Author.Id);
             if (authorInDb != null)
             {
-                // If there are related books, deletion will throw exception due to FK constraints.
-                // Could handle explicitly by checking for related books and showing message.
                 var hasBooks = await _context.Books.AnyAsync(b => b.AuthorId == authorInDb.Id);
                 if (hasBooks)
                 {
                     ModelState.AddModelError(string.Empty, "No se puede eliminar: existen libros asociados al autor.");
-                    // reload the author to display message
                     Author = authorInDb;
                     return Page();
                 }

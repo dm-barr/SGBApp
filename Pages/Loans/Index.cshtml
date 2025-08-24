@@ -46,7 +46,7 @@
                     </a>
                     @if (l.Status == "Prestado")
                     {
-                        <a asp-page="Return" asp-route-id="@l.Id" class="btn btn-sm btn-warning" title="Registrar Devolución">
+                        <a asp-page="Return" asp-route-id="@l.Id" class="btn btn-sm btn-info" title="Registrar Devolución">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
                     }
@@ -58,7 +58,6 @@
 
 @section Scripts {
     <script>
-        // 🔹 Filtro dinámico en vivo
         const searchBox = document.getElementById("searchBox");
         const rows = document.querySelectorAll("#loansTable tbody tr");
 
@@ -70,7 +69,6 @@
             });
         });
 
-        // 🔹 Ordenamiento de tabla
         function sortTable(columnIndex) {
             const table = document.getElementById("loansTable");
             const tbody = table.tBodies[0];

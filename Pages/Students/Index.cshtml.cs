@@ -19,7 +19,6 @@ namespace SGBApp.Pages.Students
 
         public async Task OnGetAsync()
         {
-            // Traer todos los estudiantes
             Students = await _context.Students.ToListAsync();
         }
     }

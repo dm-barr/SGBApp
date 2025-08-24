@@ -25,13 +25,11 @@ namespace SGBApp.Pages.Books
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            // Traer el libro de la BD
             Book = await _context.Books.FindAsync(id);
 
             if (Book == null)
                 return NotFound();
 
-            // Cargar lista de autores y mantener selección actual
             AuthorsSelect = new SelectList(
                 _context.Authors.OrderBy(a => a.Name).ToList(),
                 "Id",
@@ -44,10 +42,8 @@ namespace SGBApp.Pages.Books
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Evitar validación de la propiedad virtual Author
             ModelState.Remove("Book.Author");
 
-            // Volver a cargar lista de autores para POST en caso de error
             AuthorsSelect = new SelectList(
                 _context.Authors.OrderBy(a => a.Name).ToList(),
                 "Id",
@@ -58,7 +54,6 @@ namespace SGBApp.Pages.Books
             if (!ModelState.IsValid)
                 return Page();
 
-            // Marcar el libro como modificado
             _context.Attach(Book).State = EntityState.Modified;
 
             try

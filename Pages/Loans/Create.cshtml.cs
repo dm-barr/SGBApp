@@ -26,10 +26,8 @@ namespace SGBApp.Pages.Loans
 
         public void OnGet()
         {
-            // Inicializar Loan para evitar NullReferenceException
             Loan = new Loan();
 
-            // Cargar libros disponibles y estudiantes
             BooksSelect = new SelectList(
                 _context.Books.Where(b => b.CopiesAvailable > 0).OrderBy(b => b.Title).ToList(),
                 "Id",
@@ -45,11 +43,9 @@ namespace SGBApp.Pages.Loans
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Evitar validación de propiedades virtuales (Book y Student)
             ModelState.Remove("Loan.Book");
             ModelState.Remove("Loan.Student");
 
-            // Recargar SelectLists para mantener selección en caso de error
             BooksSelect = new SelectList(
                 _context.Books.Where(b => b.CopiesAvailable > 0).OrderBy(b => b.Title).ToList(),
                 "Id",
@@ -67,7 +63,6 @@ namespace SGBApp.Pages.Loans
             if (!ModelState.IsValid)
                 return Page();
 
-            // Verificar disponibilidad del libro
             var book = await _context.Books.FindAsync(Loan.BookId);
             if (book == null || book.CopiesAvailable <= 0)
             {
@@ -75,7 +70,6 @@ namespace SGBApp.Pages.Loans
                 return Page();
             }
 
-            // Decrementar copias disponibles y marcar estado prestado
             book.CopiesAvailable -= 1;
             Loan.Status = "Prestado";
 

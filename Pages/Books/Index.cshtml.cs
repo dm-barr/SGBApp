@@ -19,7 +19,6 @@ namespace SGBApp.Pages.Books
 
         public IList<Book> Books { get; set; } = new List<Book>();
 
-        // Propiedad para capturar el texto del buscador desde la URL
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
 

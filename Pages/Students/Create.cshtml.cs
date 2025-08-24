@@ -21,7 +21,6 @@ namespace SGBApp.Pages.Students
         {
             if (!ModelState.IsValid) return Page();
 
-            // Optional: enforce unique DocumentNumber
             var exists = await _context.Students.AnyAsync(s => s.DocumentNumber == Student.DocumentNumber);
             if (exists)
             {

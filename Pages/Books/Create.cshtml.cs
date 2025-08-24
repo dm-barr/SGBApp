@@ -24,10 +24,8 @@ namespace SGBApp.Pages.Books
 
         public void OnGet()
         {
-            // Inicializar Book para evitar NullReferenceException
             Book = new Book();
 
-            // Cargar lista de autores
             AuthorsSelect = new SelectList(
                 _context.Authors.OrderBy(a => a.Name).ToList(),
                 "Id",
@@ -37,10 +35,8 @@ namespace SGBApp.Pages.Books
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Quitar validación de la propiedad de navegación para evitar errores
             ModelState.Remove("Book.Author");
 
-            // Volver a cargar lista de autores si hay error de validación
             AuthorsSelect = new SelectList(
                 _context.Authors.OrderBy(a => a.Name).ToList(),
                 "Id",
@@ -53,7 +49,6 @@ namespace SGBApp.Pages.Books
                 return Page();
             }
 
-            // Solo AuthorId se enlaza; EF Core llenará la relación automáticamente
             _context.Books.Add(Book);
             await _context.SaveChangesAsync();
 
